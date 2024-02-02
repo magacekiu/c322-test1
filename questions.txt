@@ -1,2 +1,0 @@
-1,Which word matches the image?,elephant,bear,lion,elephant
-2,Which word matches the image?,leopard,bear,tiger,leopard
