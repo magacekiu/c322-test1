@@ -17,8 +17,8 @@ public class Question {
     private String[] choices;
 
     public String toLine() {
-        String choicesAsString = String.join(",", getChoices());
-        String line = String.format("%1s, %2s,%3s,%4s",
+        String choicesAsString = (getChoices() == null) ? "" : String.join(",", getChoices());
+        String line = String.format("%d,%s,%s,%s",
                 getId(),
                 getDescription().trim(),
                 getAnswer().trim(),

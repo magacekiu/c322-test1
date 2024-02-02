@@ -21,7 +21,7 @@ public class QuestionController {
         this.fileRepository = fileRepository;
     }
 
-
+    @PostMapping
     public boolean add(@RequestBody Question question) {
         try {
             return fileRepository.add(question);
@@ -30,7 +30,7 @@ public class QuestionController {
         }
     }
 
-
+    @GetMapping
     public List<Question> findAll() {
         try {
             return fileRepository.findAll();
@@ -58,7 +58,7 @@ public class QuestionController {
     }
 
     @PostMapping("/{id}/image")
-    public boolean updateImage(int id,
+    public boolean updateImage(@PathVariable Integer id,
                                 MultipartFile file) {
         try {
             return fileRepository.updateImage(id, file);
@@ -68,11 +68,13 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}/image")
-    public ResponseEntity<?> getImage(int id) {
+    public ResponseEntity<?> getImage(@PathVariable Integer id) {
         try {
             byte[] image = fileRepository.getImage(id);
+            MediaType imagePngType = MediaType.IMAGE_PNG;
+            assert imagePngType != null; // This line is to ensure non-nullness explicitly.
             return ResponseEntity.status(HttpStatus.FOUND)
-                    .contentType(MediaType.IMAGE_PNG)
+                    .contentType(imagePngType)
                     .body(image);
         } catch (IOException e) {
             throw new RuntimeException(e);
