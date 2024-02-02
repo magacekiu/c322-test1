@@ -17,12 +17,16 @@ class FileRepositoryTest {
 
     @BeforeAll
     static void setup() throws IOException {
-        Files.deleteIfExists(Paths.get("questions-test.txt"));
+        if (!Files.exists(Paths.get("questions-test.txt"))) {
+            Files.createFile(Paths.get("questions-test.txt"));
+        }
     }
 
     @AfterAll
     static void cleanup() throws IOException {
-        Files.delete(Paths.get("questions-test.txt"));
+        if (Files.exists(Paths.get("questions-test.txt"))) {
+            Files.delete(Paths.get("questions-test.txt"));
+        }
     }
 
     @Test
@@ -66,9 +70,6 @@ class FileRepositoryTest {
         }
         assertTrue(result);
     }
-
-
-
 
     @Test
     void findAll() {
